@@ -14,6 +14,14 @@
           <input type="checkbox" v-model="t.done" class="form-check-input" /> {{t.done}}
         </div>
       </div>
+      <div class="row py-2">
+        <div class="col">
+          <input v-model="newItemText" class="form-control" />
+        </div>
+        <div class="col-2">
+          <button class="btn btn-primary" v-on:click="addNewTodo">Add</button>
+        </div>
+        </div>
       <div class="row bg-secondary py-2 mt-2 text-white">
         <div class="col text-center">
           <input type="checkbox" v-model="hideCompleted" class="form-check-input" />
@@ -27,25 +35,35 @@
 </template>
 
 <script>
-export default {
-  name: 'App',
-   data() {
-    return {
-      name: "Adam",
-      tasks: [{ action: "Buy Flowers", done: false },
-              { action: "Get Shoes", done: false },
-              { action: "Collect Tickets", done: true },
-              { action: "Call Joe", done: false }],
-      hideCompleted: true
-    }
-  },
-  computed: {
-    filteredTasks() {
-      return this.hideCompleted ?
-      this.tasks.filter(t => !t.done) : this.tasks
+  export default {
+    name: 'app',
+    data() {
+      return {
+        name: "Adam",
+        tasks: [{ action: "Buy Flowers", done: false },
+                { action: "Get Shoes", done: false },
+                { action: "Collect Tickets", done: true },
+                { action: "Call Joe", done: false }],
+        hideCompleted: true,
+        newItemText: ""
+      }
+    },
+    computed: {
+      filteredTasks() {
+        return this.hideCompleted ?
+          this.tasks.filter(t => !t.done) : this.tasks
+      }
+    },
+    methods: {
+      addNewTodo() {
+        this.tasks.push({
+          action: this.newItemText,
+          done: false
+        });
+        this.newItemText = "";
+      }
     }
   }
-}
 </script>
 
 
